@@ -275,7 +275,6 @@ def passive_view(win, video, units ='height', video_name = None, log=None, mute_
                 Offset = ts_end.strftime('%Y-%m-%d %H:%M:%S.%f'),
                 SystemTime_Start= ts_start, SystemTime_Stop=ts_end)
 
-
 # ----- RATING VIDEO -----
 def pre_active(win, text, done_key, label_L, label_R, key_L, key_R, scale_color, text_height = 0.065, text_color = 'white', wrap_width = 1.33, log=None, increments = 5, task_name = 'pre_active'):
 
@@ -313,12 +312,19 @@ def pre_active(win, text, done_key, label_L, label_R, key_L, key_R, scale_color,
 
     # Define our text object
     text = visual.TextStim(win=win, text=text, pos=[0,0], height=text_height, wrapWidth=wrap_width, color=text_color, autoDraw = True)
-
-    # Capturing which keys have been pressed
-    keys = kb.getKeys()
     
     # If the stimulus is still playing
-    while done_key not in keys:
+    while True:
+        
+        # Capturing which keys have been pressed
+        keys = kb.getKeys()
+
+        # Extract key names
+        key_names = [key.name for key in keys]
+
+        # If the done_key is pressed, break the loop
+        if done_key in key_names:
+            break
         
         # Draw the current frame
         CertaintyRatings.draw()
@@ -638,7 +644,7 @@ def free_recall(win, log=None, device_info = sd.query_devices(None, 'input'), sa
     if show_volume:
         
         # Initializing volume variable
-        volume_norm = 0
+        volume_norm = [0]
 
         # Position the volume bar to the right
         volume_bar = visual.Rect(win, width=0.15, height=0.5, fillColor=volume_color, pos=(0.8, 0))
@@ -646,11 +652,10 @@ def free_recall(win, log=None, device_info = sd.query_devices(None, 'input'), sa
         volume_target_high = visual.Rect(win, width=0.18, height=0.01, fillColor='red', pos=(0.8, target_volume * 0.0075))
         volume_target_low = visual.Rect(win, width=0.18, height=0.01, fillColor='red', pos=(0.8, -(target_volume * 0.0075)))
     
-    # Creating a function to track audio
+    # Modify the audio_callback function to update the first element of the list
     def audio_callback(indata, frames, time, status):
         if recording_started:
-            global volume_norm
-            volume_norm = np.linalg.norm(indata) * 10
+            volume_norm[0] = np.linalg.norm(indata) * 10
             output_data.extend(indata.copy())
     
     # Load and position the image in the center of the screen
@@ -678,10 +683,10 @@ def free_recall(win, log=None, device_info = sd.query_devices(None, 'input'), sa
                 
                 # If we want the volume tracker visualized
                 if show_volume:
-                    volume_bar.height = volume_norm / volume_sensitivity  # Update the visual element with the latest volume level
+                    volume_bar.height = volume_norm[0] / volume_sensitivity  # Update the visual element with the latest volume level
                     volume_tray.draw()  # Draw the volume tray
                     volume_bar.draw()  # Draw the volume bar
-                    
+                     
                     # If we entered a value for the target volume
                     if target_volume > 0: 
                         volume_target_high.draw() # Draw the target volume upper limit
