@@ -8,22 +8,38 @@ __license__ = "MIT"
 
 import warnings
 import os
+import time
+import re
+import sys
+from psychopy import data, gui, core, visual
 # import sounddevice as sd
 # import lameenc
 # import wave
-from psychopy import data, gui, core, visual
-import time
+
+# ----- VALIDATE ENTRY ------
+
+def validate_boolean(entry, regrex):
+
+    return re.match(regrex, entry) is not None
+
+def validate_entry(entry, regrex, message):
+
+    if not validate_boolean(entry, regrex):
+        print(message)
+        sys.exit(1)
+
+# ----- VALIDATE CONDITION ------
 
 # ----- CREATE LOG -----
 def make_log(experiment, subject, condition, date, path, psychopy_version):
 
     filename = _thisDir + os.sep + u'data/%s_%s_%s%s_%s' % (experiment, subject, 'Condition-', condition, date)
     
-    return(data.ExperimentHandler(name=experiment, version='',
+    return data.ExperimentHandler(name=experiment, version='',
                                  extraInfo=subject, runtimeInfo=None,
                                  originPath=path,
                                  savePickle=True, saveWideText=True,
-                                 dataFileName=filename))
+                                 dataFileName=filename)
 
 # ----- UPDATE LOG -----
 def update_log(log, Func = 'NA', Video = 'NA', CertRate = 'NA', CertStat = 'NA', Keys = 'NA', Text = 'NA', RespTime = 'NA', Onset = 'NA', Offset = 'NA', SystemTime_Start = 'NA', SystemTime_Stop = 'NA', FrameTimestamps = 'NA'):
@@ -71,7 +87,7 @@ def update_log(log, Func = 'NA', Video = 'NA', CertRate = 'NA', CertStat = 'NA',
     log.addData('FrameTimestamps', FrameTimestamps)
     log.nextEntry()
 
-    return(log)
+    return log
 
 # ----- KEY_OR_TIME ----
 def key_or_time(win, duration, keyboard):
