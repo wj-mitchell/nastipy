@@ -15,30 +15,15 @@ from psychopy import data, gui, core, visual
 import time
 
 # ----- CREATE LOG -----
-def make_log(experiment, subject, condition, origin, psychopy_version = '2023.2.3'):
+def make_log(experiment, subject, condition, date, path, psychopy_version):
 
-    dlg = gui.DlgFromDict(dictionary = subject, 
-                          sortKeys=False, 
-                          title = experiment)
-    if dlg.OK == False:
-        core.quit()
-
-    subject['date'] = data.getDateStr()
-    subject['experiment'] = experiment
-    subject['psychopy_version'] = psychopy_version
-
-    directory = os.path.dirname(os.path.abspath(__file__))
-    os.chdir(directory)
-
-    filename = directory + os.sep + u'data/%s_%s_%s%s_%s' % (experiment, subject['Participant*'], condition, subject['date'])
-
-    log = data.ExperimentHandler(name=experiment, version='',
-                                 extraInfo=subject, runtimeInfo=None,
-                                 originPath=origin,
-                                 savePickle=True, saveWideText=True,
-                                 dataFileName=filename)
+    filename = _thisDir + os.sep + u'data/%s_%s_%s%s_%s' % (experiment, subject, 'Condition-', condition, date)
     
-    return(log)
+    return(data.ExperimentHandler(name=experiment, version='',
+                                 extraInfo=subject, runtimeInfo=None,
+                                 originPath=path,
+                                 savePickle=True, saveWideText=True,
+                                 dataFileName=filename))
 
 # ----- UPDATE LOG -----
 def update_log(log, Func = 'NA', Video = 'NA', CertRate = 'NA', CertStat = 'NA', Keys = 'NA', Text = 'NA', RespTime = 'NA', Onset = 'NA', Offset = 'NA', SystemTime_Start = 'NA', SystemTime_Stop = 'NA', FrameTimestamps = 'NA'):
