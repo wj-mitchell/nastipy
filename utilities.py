@@ -33,7 +33,7 @@ def validate_entry(entry, regrex, message):
 # ----- CREATE LOG -----
 def make_log(experiment, subject, condition, date, path, psychopy_version):
 
-    filename = _thisDir + os.sep + u'data/%s_%s_%s%s_%s' % (experiment, subject, 'Condition-', condition, date)
+    filename = os.path.dirname(os.path.abspath(__file__)) + os.sep + u'data/%s_%s_%s%s_%s' % (experiment, subject, 'Condition-', condition, date)
     
     return data.ExperimentHandler(name=experiment, version='',
                                  extraInfo=subject, runtimeInfo=None,

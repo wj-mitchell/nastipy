@@ -82,14 +82,14 @@ def text_display(win, text, duration, log=None, text_color = 'white', text_heigh
 
         # ... and this is a timed fixation, log it as such
         if isinstance(duration, int) or isinstance(duration, float):
-            return  utilities.update_log(Func = task_name, Text = text,
+            return  utilities.update_log(log = log, Func = task_name, Text = text,
                                          Onset = ts_start.strftime('%Y-%m-%d %H:%M:%S.%f'),
                                          Offset = ts_end.strftime('%Y-%m-%d %H:%M:%S.%f'),
                                          SystemTime_Start= ts_start, SystemTime_Stop=ts_end)
         
         # ... and this is not a timed fixation, log it as such
         elif isinstance(duration, str):
-            return  utilities.update_log(Func = task_name, Keys= response["keys"],
+            return  utilities.update_log(log = log, Func = task_name, Keys= response["keys"],
                                         Text = text, RespTime=response["rt"],
                                         Onset = ts_start.strftime('%Y-%m-%d %H:%M:%S.%f'),
                                         Offset = ts_end.strftime('%Y-%m-%d %H:%M:%S.%f'),
@@ -223,14 +223,14 @@ def backinfo(win, duration, text, character_name_L, character_role_L, character_
 
         # ... and this is a timed fixation, log it as such
         if isinstance(duration, int) or isinstance(duration, float):
-            return utilities.update_log(Func = task_name, Text = text,
+            return utilities.update_log(log = log, Func = task_name, Text = text,
                                         Onset = ts_start.strftime('%Y-%m-%d %H:%M:%S.%f'),
                                         Offset = ts_end.strftime('%Y-%m-%d %H:%M:%S.%f'),
                                         SystemTime_Start= ts_start, SystemTime_Stop=ts_end)
         
         # ... and this is not a timed fixation, log it as such
         elif isinstance(duration, str):
-            return utilities.update_log(Func = task_name, Keys= response["keys"],
+            return utilities.update_log(log = log, Func = task_name, Keys= response["keys"],
                                         Text = text, RespTime= response["rt"],
                                         Onset = ts_start.strftime('%Y-%m-%d %H:%M:%S.%f'),
                                         Offset = ts_end.strftime('%Y-%m-%d %H:%M:%S.%f'),
@@ -287,7 +287,7 @@ def passive_view(win, video, units ='height', video_name = None, log=None, mute_
     # If a log was submitted
     if log is not None:
 
-        return utilities.update_log(Func = task_name, Video = video_name,
+        return utilities.update_log(log = log, Func = task_name, Video = video_name,
                                     Onset = ts_start.strftime('%Y-%m-%d %H:%M:%S.%f'),
                                     Offset = ts_end.strftime('%Y-%m-%d %H:%M:%S.%f'),
                                     SystemTime_Start= ts_start, SystemTime_Stop=ts_end)
@@ -429,7 +429,7 @@ def pre_active(win, text, done_key, label_L, label_R, key_L, key_R, scale_color,
     # If a log was submitted
     if log is not None:
 
-        return Current_Scale_Position, utilities.update_log(Func = task_name, CertRate = Current_Scale_Position, Onset = ts_start.strftime('%Y-%m-%d %H:%M:%S.%f'),
+        return Current_Scale_Position, utilities.update_log(log = log, Func = task_name, CertRate = Current_Scale_Position, Onset = ts_start.strftime('%Y-%m-%d %H:%M:%S.%f'),
                                                             Offset = ts_end.strftime('%Y-%m-%d %H:%M:%S.%f'), SystemTime_Start= ts_start, SystemTime_Stop=ts_end)
     
     # If a log was not submitted
@@ -600,7 +600,7 @@ def active_view(win, video, video_name, label_L, label_R, key_L, key_R, scale_co
     # If a log was submitted
     if log is not None:
 
-        return utilities.update_log(Func = task_name, Video = video_name, CertRate = Scale_Value,
+        return utilities.update_log(log = log, Func = task_name, Video = video_name, CertRate = Scale_Value,
                                     CertStat = Scale_Label, Onset = ts_start.strftime('%Y-%m-%d %H:%M:%S.%f'),
                                     Offset = ts_end.strftime('%Y-%m-%d %H:%M:%S.%f'), SystemTime_Start= ts_start, SystemTime_Stop=ts_end)
 
@@ -742,7 +742,7 @@ def free_recall(win, log=None, device_info = sd.query_devices(None, 'input'), sa
             print("No data was recorded.")
         
         if log is not None:
-            return utilities.update_log(log,
+            return utilities.update_log(log = log,
                                         Func = task_name, Text = trigger_text,
                                         Onset = ts_start.strftime('%Y-%m-%d %H:%M:%S.%f'),
                                         Offset = ts_end.strftime('%Y-%m-%d %H:%M:%S.%f'),
