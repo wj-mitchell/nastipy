@@ -154,6 +154,7 @@ def backinfo(win, duration, text, character_name_L, character_role_L, character_
     
     # Notes on Future Improvements:
     # + Allow image_size to be a vector for images that are not square shaped
+    # + Change name to image present
 
     # Start the clock
     ts_start = datetime.datetime.now()
