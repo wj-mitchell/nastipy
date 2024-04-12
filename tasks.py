@@ -176,16 +176,25 @@ def backinfo(win, duration, text, character_name_L, character_role_L, character_
     ts_start = datetime.datetime.now()
 
     # Define our text and image objects
-    Information = visual.TextStim(win=win, text= text, pos=(0,-.30), height=text_height, wrapWidth=wrap_width, color=text_color, autoDraw = True);
-    Image_L = visual.ImageStim(win=win, image=character_image_L, mask=None, ori=0.0, pos=(-(image_xpos), image_ypos), size=(image_size, image_size), color=[1,1,1], colorSpace='rgb', texRes=128.0, interpolate=True, depth=-4.0, autoDraw = True)
-    Character_L = visual.TextStim(win=win, text=f"{character_role_L}:\n{character_name_L}",pos=(-(image_xpos), text_ypos), height=0.040, color='white', alignText='center', autoDraw = True);
+    Information = visual.TextStim(win=win, text= text, pos=(0,-.30), height=text_height, wrapWidth=wrap_width, color=text_color)
+    Image_L = visual.ImageStim(win=win, image=character_image_L, mask=None, ori=0.0, pos=(-(image_xpos), image_ypos), size=(image_size, image_size), color=[1,1,1], colorSpace='rgb', texRes=128.0, interpolate=True, depth=-4.0)
+    Character_L = visual.TextStim(win=win, text=f"{character_role_L}:\n{character_name_L}",pos=(-(image_xpos), text_ypos), height=0.040, color='white', alignText='center')
 
     if character_image_R is not None:
-        Image_R = visual.ImageStim(win=win, image=character_image_R, mask=None, ori=0.0, pos=(image_xpos, image_ypos), size=(image_size, image_size), color=[1,1,1], colorSpace='rgb', texRes=128.0, interpolate=True, depth=-4.0, autoDraw = True)
-        Character_R = visual.TextStim(win=win, text=f"{character_role_R}:\n{character_name_R}",pos=(image_xpos, text_ypos), height=0.040, color='white', alignText='center', autoDraw = True);
+        Image_R = visual.ImageStim(win=win, image=character_image_R, mask=None, ori=0.0, pos=(image_xpos, image_ypos), size=(image_size, image_size), color=[1,1,1], colorSpace='rgb', texRes=128.0, interpolate=True, depth=-4.0)
+        Character_R = visual.TextStim(win=win, text=f"{character_role_R}:\n{character_name_R}",pos=(image_xpos, text_ypos), height=0.040, color='white', alignText='center')
     
     # Flipping the window
     win.flip()
+    
+    # Stop drawing the text
+    Information.draw()
+    Image_L.draw()
+    Character_L.draw()
+    
+    if character_image_R is not None:
+        Image_R.draw()
+        Character_R.draw()
 
     # Initializing keyboard
     kb = keyboard.Keyboard()
@@ -202,15 +211,6 @@ def backinfo(win, duration, text, character_name_L, character_role_L, character_
         
         # Custom utility function to progress the event
         response = utilities.key_or_time(win = win, duration = duration, keyboard = kb)
-
-    # Stop drawing the text
-    Information.setAutoDraw(False)
-    Image_L.setAutoDraw(False)
-    Character_L.setAutoDraw(False)
-    
-    if character_image_R is not None:
-        Image_R.setAutoDraw(False)
-        Character_R.setAutoDraw(False)
 
     # Flip the window
     win.flip()
