@@ -17,56 +17,56 @@ from psychopy import data, gui, core, visual
 # import wave
 
 # ----- DIALOGUE BOX -----
-## Denoting the task title
-subjDlg = gui.Dlg(title="Feedback Games")                                 
-## Denoting the Subject ID
-subjDlg.addField('Enter Subject ID: ')                                  
-## Denoting where we want the task to start
-subjDlg.addField('Task:', choices=[' ',                   
-                                   'E',
-                                   'R'])
-## Denoting where we want the task to start
-subjDlg.addField('Starting Point:', choices=[' ',
-                                             'Run 1',                   
-                                             'Run 2'])
-## Denoting where we want the task to start
-subjDlg.addField('Practice Task:', choices=[' ',
-                                            'Practice',                   
-                                            'NoPractice'])
+# ## Denoting the task title
+# subjDlg = gui.Dlg(title="Feedback Games")                                 
+# ## Denoting the Subject ID
+# subjDlg.addField('Enter Subject ID: ')                                  
 # ## Denoting where we want the task to start
-# subjDlg.addField('Seed: ', random.randint(0, 9999))
+# subjDlg.addField('Task:', choices=[' ',                   
+#                                    'E',
+#                                    'R'])
+# ## Denoting where we want the task to start
+# subjDlg.addField('Starting Point:', choices=[' ',
+#                                              'Run 1',                   
+#                                              'Run 2'])
+# ## Denoting where we want the task to start
+# subjDlg.addField('Practice Task:', choices=[' ',
+#                                             'Practice',                   
+#                                             'NoPractice'])
+# # ## Denoting where we want the task to start
+# # subjDlg.addField('Seed: ', random.randint(0, 9999))
 
-# Present the GUI
-subjDlg.show()
-if subjDlg.OK == False:
-    core.quit()
+# # Present the GUI
+# subjDlg.show()
+# if subjDlg.OK == False:
+#     core.quit()
 
-# Store values from the GUI as variables
-## Storing Subject ID
-subj_id = subjDlg.data[0]
-## Storing Task Start
-if subjDlg.data[1] == "E":
-    task_type = "Encoding"
-elif subjDlg.data[1] == "R":
-    task_type = "Recall" 
-else:      
-    # If the operator forgets to select where to start the task, remind them                                                             
-    print(Warning + 'You have not chosen which task to run (Encoding, or Recall). \n Please try again!')
-    core.quit()
-## Storing Task Start
-if subjDlg.data[2] != " ":
-    task_start = subjDlg.data[2]
-else:      
-    # If the operator forgets to select where to start the task, remind them                                                             
-    print(Warning + 'You have not chosen where to start the task (run 1 or run 2). \n Please try again!')
-    core.quit()
-## Storing Task Start
-if subjDlg.data[3] != " ":
-    run_practice = subjDlg.data[3]
-else:      
-    # If the operator forgets to select where to start the task, remind them                                                             
-    print(Warning + 'You have not chosen whether to include practice trials or not. \n Please try again!')
-    core.quit()
+# # Store values from the GUI as variables
+# ## Storing Subject ID
+# subj_id = subjDlg.data[0]
+# ## Storing Task Start
+# if subjDlg.data[1] == "E":
+#     task_type = "Encoding"
+# elif subjDlg.data[1] == "R":
+#     task_type = "Recall" 
+# else:      
+#     # If the operator forgets to select where to start the task, remind them                                                             
+#     print(Warning + 'You have not chosen which task to run (Encoding, or Recall). \n Please try again!')
+#     core.quit()
+# ## Storing Task Start
+# if subjDlg.data[2] != " ":
+#     task_start = subjDlg.data[2]
+# else:      
+#     # If the operator forgets to select where to start the task, remind them                                                             
+#     print(Warning + 'You have not chosen where to start the task (run 1 or run 2). \n Please try again!')
+#     core.quit()
+# ## Storing Task Start
+# if subjDlg.data[3] != " ":
+#     run_practice = subjDlg.data[3]
+# else:      
+#     # If the operator forgets to select where to start the task, remind them                                                             
+#     print(Warning + 'You have not chosen whether to include practice trials or not. \n Please try again!')
+#     core.quit()
 
 # ----- VALIDATE ENTRY ------
 
